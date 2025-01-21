@@ -11,24 +11,36 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
+///////////Controller///////
 builder.Services.AddControllers();
+////////////////
+
+
 builder.Services.AddOpenApi();
 
+
+/////// cors policy container///////
+
+///
+
+
+///////DB SQL////////////////////
 builder.Services.AddDbContext<ApplicationDbContext>(options =>{
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
+///////////////////////
 ///////Service-Repo-Interface DI////////////
 
 builder.Services.AddScoped<ITokenService,TokenService>();
 /////////////////////////
 
-
+//Newton js
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
-
+////////////////
 
 
 ///Identity/////////////////////////////
@@ -40,10 +52,7 @@ builder.Services.AddIdentity<AppUser,IdentityRole>(options =>{
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequiredLength = 12;
 }).AddEntityFrameworkStores<ApplicationDbContext>();
-
-
 ///////////////////////////////////////////
-///
 
 ///////jwt token scheme//////////////////
 
@@ -77,9 +86,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+///////auth and map controller////
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+/////
 
 
 app.Run();
