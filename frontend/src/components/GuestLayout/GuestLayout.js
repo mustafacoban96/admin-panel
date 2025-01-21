@@ -4,9 +4,9 @@ import { useAuthContext } from '../../context/AuthContext'
 
 const GuestLayout = () => {
 
-  const{access_token} = useAuthContext();
+  const{token} = useAuthContext();
 
-  if(access_token){
+  if(token){
     return <Navigate to='home'/>
   }
   return (

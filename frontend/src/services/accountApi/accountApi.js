@@ -10,9 +10,9 @@ const axiosConfig = axios.create({
 
 axios.interceptors.request.use(
     (config) =>{
-        const access_token = localStorage.getItem('ACCESS_TOKEN'); // store access token
-        if(access_token){
-            config.headers.Authorization = `Bearer ${access_token}` // set in header
+        const token = localStorage.getItem('ACCESS_TOKEN'); // store access token
+        if(token){
+            config.headers.Authorization = `Bearer ${token}` // set in header
         }
         return config;
     },
