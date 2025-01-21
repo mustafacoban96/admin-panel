@@ -1,5 +1,7 @@
 using api.Data;
+using api.Interfaces;
 using api.Models;
+using api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +17,11 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>{
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+///////Service-Repo-Interface DI////////////
+
+builder.Services.AddScoped<ITokenService,TokenService>();
+/////////////////////////
 
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
