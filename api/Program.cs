@@ -21,7 +21,15 @@ builder.Services.AddOpenApi();
 
 
 /////// cors policy container///////
-
+builder.Services.AddCors(options =>{
+    options.AddPolicy("ReactApp",
+        policy =>{
+            policy.WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        });
+});
 ///
 
 
@@ -92,6 +100,9 @@ app.UseAuthorization();
 app.MapControllers();
 /////
 
+//// use Cors policy
+app.UseCors("ReactApp");
+///
 
 app.Run();
 
