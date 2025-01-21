@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import logo from "../../assets/SANKOLogo-02.png";
 import useAuthService from '../../services/auth-service';
+import { ToastContainer } from 'react-toastify';
 
 const Login = () => {
 
@@ -30,6 +31,7 @@ const Login = () => {
   };
 
   return (
+    <>
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
     <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
       <div className='flex justify-center'> 
@@ -80,6 +82,8 @@ const Login = () => {
       </form>
     </div>
 </div>
+<ToastContainer/>
+</>
   )
 }
 
