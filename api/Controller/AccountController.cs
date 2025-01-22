@@ -35,6 +35,16 @@ namespace api.Controller
                 if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+                 // Kullanıcı adını kontrol et
+                    var existingUsername = await _userManager.Users.AnyAsync(u => u.UserName == registerdto.Username.ToLower());
+                    if (existingUsername)
+                        return BadRequest("Username is already taken!");
+
+                // E-posta adresini kontrol et
+                    var existingEmail = await _userManager.Users.AnyAsync(u => u.Email == registerdto.Email.ToLower());
+                    if (existingEmail)
+                        return BadRequest("Email is already taken!");
+
                 var appUser = new AppUser
                 {
                     UserName = registerdto.Username,
