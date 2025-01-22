@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useAuthContext } from "../context/AuthContext"
 import axiosConfig from "./accountApi/accountApi";
 import { Bounce, toast } from 'react-toastify';
@@ -7,19 +8,85 @@ import { Bounce, toast } from 'react-toastify';
 
 const useAuthService = () =>{
     const {setUser,setToken} = useAuthContext();
+    const [confirm_password, setConfirmPassword] = useState(false);
 
 
-    const register = (register_payload) =>{
+    const registerApi = (register_payload) =>{
+        
+        if(register_payload.password != register_payload.confirm_password){
+            setConfirmPassword(true);
+            toast.error("Password didn't macth it", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                });
+                setConfirmPassword(false);
+                return;
+        }
+        
         return axiosConfig.post("/register" , register_payload)
         .then((response) =>{
-            console.log("register response:::" , response)
+            response = response.data
+            let user = {username: response.username,email:response.email}
+            let token = response.token
+            toast.success("Register is successful", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                });
+            setTimeout(() =>{
+                setUser(user);
+                setToken(token)
+            },3300)
         })
         .catch((err) =>{
-            console.log("register error::::" , err)
+            let statusCode = err.status
+            console.log("errrrr::::",err)
+            if(statusCode == 500){
+                toast.error("inputs are not valid", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                    });
+            }
+            if(statusCode == 400){
+                let errMessage = err.response.data
+                toast.error(errMessage, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                    });
+            }
+
+            
         })
     };
 
-    const login = (login_payload) =>{
+    const loginApi = (login_payload) =>{
         return axiosConfig.post("/login",login_payload)
             .then((response) =>{
                 response = response.data
@@ -41,7 +108,7 @@ const useAuthService = () =>{
                 setTimeout(() =>{
                     setUser(user);
                     setToken(token)
-                },33000)
+                },3300)
             })
             .catch((err) =>{
                 
@@ -83,8 +150,8 @@ const useAuthService = () =>{
     }
 
     return {
-        register,
-        login
+        registerApi,
+        loginApi
     };
 };
 
