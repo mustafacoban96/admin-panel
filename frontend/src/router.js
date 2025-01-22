@@ -4,8 +4,10 @@ import GuestLayout from "./components/GuestLayout/GuestLayout";
 import Login from "./views/Login/Login";
 import NotFound from "./views/NotFound/NotFound";
 import Register from "./views/Register/Register";
-import Dashboard from "./views/DashBoard/Dashboard";
+import Product from "./views/Product/Product";
 import Home from "./views/Home/Home";
+import HomeTest from "./views/Home/HomeTest";
+import Settings from "./views/Settings/Settings"
 
 
 
@@ -21,12 +23,16 @@ const router = createBrowserRouter([
                 element:<Navigate to='/home'/>
             },
             {
-                path:'dashboard',
-                element:<Dashboard/>
+                path:'product',
+                element:<Product/>
             },
             {
                 path:'home',
-                element:<Home/>
+                element:<HomeTest/>
+            },
+            {
+                path:'settings',
+                element:<Settings/>
             }
         ]
     },
