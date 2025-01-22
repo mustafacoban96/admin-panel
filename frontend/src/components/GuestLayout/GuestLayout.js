@@ -6,9 +6,9 @@ const GuestLayout = () => {
 
   const{token} = useAuthContext();
 
-  if(token){
-    return <Navigate to='home'/>
-  }
+  // if(token){
+  //   return <Navigate to='home'/>
+  // }
   return (
     <div>
       <Outlet/>
