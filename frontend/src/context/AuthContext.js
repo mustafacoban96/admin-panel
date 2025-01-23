@@ -1,4 +1,4 @@
-import React, {  createContext, useContext, useState } from 'react'
+import React, {  createContext, useContext, useEffect, useState } from 'react'
 
 
 
@@ -11,12 +11,17 @@ const AuthContext = createContext({
 
 
 export const AuthProvider = ({children}) =>{
-    const [user,_setUser] = useState(() =>{
-        const user = localStorage.getItem('USER')
-        return user ? JSON.parse(user) : null
-    });
+    const [user, _setUser] = useState(null);
+    const [token, _setToken] = useState(null);
 
-    const [token, _setToken] = useState(() =>{localStorage.getItem('ACCESS_TOKEN')});
+    useEffect(() => {
+        // LocalStorage'dan verileri başlangıçta çekiyoruz.
+        const storedUser = localStorage.getItem('USER');
+        const storedToken = localStorage.getItem('ACCESS_TOKEN');
+    
+        if (storedUser) _setUser(JSON.parse(storedUser));
+        if (storedToken) _setToken(storedToken);
+      }, []);
 
 
     const setToken = (token) =>{

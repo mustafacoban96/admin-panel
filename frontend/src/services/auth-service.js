@@ -148,10 +148,25 @@ const useAuthService = () =>{
                
             })
     }
+    const logoutApi = () => {
+        return new Promise((resolve) => {
+            localStorage.removeItem("USER");
+            localStorage.removeItem("ACCESS_TOKEN");
+            setUser(null);
+            setToken(null);
+            toast.success("Logout is successful", {
+                position: "top-right",
+                autoClose: 2000,
+                theme: "light",
+            });
+            resolve();
+        });
+    };
 
     return {
         registerApi,
-        loginApi
+        loginApi,
+        logoutApi
     };
 };
 
