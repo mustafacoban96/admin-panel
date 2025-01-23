@@ -5,9 +5,8 @@ import Login from "./views/Login/Login";
 import NotFound from "./views/NotFound/NotFound";
 import Register from "./views/Register/Register";
 import Product from "./views/Product/Product";
-import Home from "./views/Home/Home";
-import HomeTest from "./views/Home/HomeTest";
 import Settings from "./views/Settings/Settings"
+import Dashboard from "./views/Home/Dashboard";
 
 
 
@@ -28,7 +27,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'home',
-                element:<HomeTest/>
+                element:<Dashboard/>
             },
             {
                 path:'settings',
