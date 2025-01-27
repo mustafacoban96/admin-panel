@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { Navigate, Outlet } from 'react-router'
+import { Navigate, Outlet, useLocation} from 'react-router'
 import { useAuthContext } from '../../context/AuthContext'
 import SideBar from '../SideBar/SideBar';
 import Header from '../Header/Header';
+import { ToastContainer } from 'react-toastify';
 
 const DefaultLayout = () => {
-  const {token,user} = useAuthContext();
+  const {token} = useAuthContext();
   const [darkMode, setDarkMode] = useState(false);
-
   // if (token === null) {
   //   Token kontrolü için null durumunda yükleme beklenebilir
   //   return (
@@ -19,11 +19,19 @@ const DefaultLayout = () => {
   //   );
   // }
 
-  if (!(token && user)) {
-    return <Navigate to="login" />;
+
+
+  if (!token) {
+    
+    return <Navigate to="/login"/>;
   }
+  
+
   return (
+    
+    <>
     <div className={darkMode ? 'dark' : ''}>
+      <ToastContainer />
       <div className="flex h-screen w-screen overflow-hidden">
         {/* SideBar */}
           <SideBar />
@@ -50,6 +58,7 @@ const DefaultLayout = () => {
         {darkMode ? '☀️ Light' : '🌙 Dark'}
       </button>
     </div>
+    </>
   )
 }
 

@@ -12,7 +12,7 @@ const Header = () => {
     const initial = user.username.charAt(0).toUpperCase();
   //////name
   return (
-    <div className='dark:bg-darkBack bg-lightBack h-16 px-4 py-1 flex items-center justify-between shadow-md'>
+    <div className='dark:bg-darkBack bg-lightBack h-16 px-4 py-1 flex items-center justify-between shadow-sm'>
       <div className='relative'>
         <HiOutlineSearch className='text-gray-400 absolute top-1/2 left-3 -translate-y-1/2'/>
         <input type='text' placeholder='Search...' className='text-sm focus:outline-none active:outline-none border border-gray-200 w-[24rem] h-10 pl-11 px-4 rounded-md placeholder-opacity-100 dark:bg-slate-600'/>

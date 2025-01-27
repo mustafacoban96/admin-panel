@@ -4,12 +4,11 @@ import GuestLayout from "./components/GuestLayout/GuestLayout";
 import Login from "./views/Login/Login";
 import NotFound from "./views/NotFound/NotFound";
 import Register from "./views/Register/Register";
-import Product from "./views/Product/Product";
+import ProductList from "./views/Product/ProductList";
 import Settings from "./views/Settings/Settings"
 import Dashboard from "./views/Home/Dashboard";
-
-
-
+import ProductDetail from "./views/Product/ProductDetail";
+import AddProduct from "./views/Product/AddProduct";
 
 
 const router = createBrowserRouter([
@@ -17,13 +16,10 @@ const router = createBrowserRouter([
         path:'/',
         element:<DefaultLayout/>,
         children:[
+           
             {
-                path:'/',
-                element:<Navigate to='/home'/>
-            },
-            {
-                path:'product',
-                element:<Product/>
+                path:'products',
+                element:<ProductList/>
             },
             {
                 path:'home',
@@ -32,6 +28,14 @@ const router = createBrowserRouter([
             {
                 path:'settings',
                 element:<Settings/>
+            },
+            {
+                path:"/product/:productId",
+                element:<ProductDetail/>
+            },
+            {
+                path:"/product/add",
+                element:<AddProduct/>
             }
         ]
     },
