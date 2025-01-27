@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { fetchProductById, getSelectedProduct, updateProduct } from "../../features/products/productSlice";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import Spinner from "../../components/Spinner/Spinner";
@@ -13,6 +13,7 @@ const ProductDetail = () => {
   const dispatch = useDispatch();
   const product = useSelector(getSelectedProduct);
   const isLoading = useSelector((state) => state.products.isLoading);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchProductById(productId));
@@ -31,28 +32,31 @@ const ProductDetail = () => {
 
     try {
       await dispatch(updateProduct({ productId, updatedProduct })).unwrap();
-      toast.success("Ürün başarıyla güncellendi!", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
-      await dispatch(fetchProductById(productId)).unwrap();
+        navigate("/products");
+        setTimeout(() => {
+            toast.success("Ürün başarıyla güncellendi!", {
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+              });
+        },100)      
+     
     } catch (error) {
       toast.error("Ürün güncellenemedi.....", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: "colored",
         transition: Bounce,
       });
     } finally {

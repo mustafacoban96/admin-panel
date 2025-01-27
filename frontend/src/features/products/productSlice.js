@@ -58,7 +58,7 @@ try {
 //delete
 export const deleteProduct = createAsyncThunk("products/deleteProduct", async(productId) =>{
     const response = await baseApi.delete(`/product/${productId}`)
-    console.log(response);
+    //console.log(response);
     
 })
 const productSlice = createSlice({

@@ -31,26 +31,26 @@ const ProductList = () => {
       setIsModalOpen(false); // Close the modal after success
       toast.success('Ürün başarıyla silindi!', {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: "colored",
         transition: Bounce,
       });
       
     } catch (error) {
       toast.error("Ürün silinemedi.....", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: "colored",
         transition: Bounce,
       });
     }
@@ -70,9 +70,9 @@ const ProductList = () => {
     return <Spinner />;
   }
 
-  if (error) {
-    return <ErrorAlerts error="Ürünler getirilemedi........" />;
-  }
+  // if (error) {
+  //   return <ErrorAlerts error="Ürünler getirilemedi........" />;
+  // }
 
   return (
     <div className="min-h-screen bg-lightBack dark:bg-darkBack text-lText dark:text-darkTxtTitle">
@@ -124,7 +124,7 @@ const ProductList = () => {
                       to={`/product/${product.id}`}
                       className="bg-lIcon text-white py-2 px-4 rounded-md hover:bg-lIcon dark:hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-lIcon dark:focus:ring-dIcon"
                     >
-                      View Detail
+                      View
                     </Link>
                   </td>
                 </tr>

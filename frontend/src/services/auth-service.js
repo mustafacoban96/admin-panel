@@ -21,7 +21,7 @@ const useAuthService = () =>{
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "light",
+                theme: "colored",
                 transition: Bounce,
                 });
                 setConfirmPassword(false);
@@ -35,7 +35,7 @@ const useAuthService = () =>{
             let token = response.token
             toast.success("Register is successful", {
                 position: "top-right",
-                autoClose: 3000,
+                autoClose: 800,
                 hideProgressBar: false,
                 closeOnClick: false,
                 pauseOnHover: true,
@@ -47,7 +47,7 @@ const useAuthService = () =>{
             setTimeout(() =>{
                 setUser(user);
                 setToken(token)
-            },3300)
+            },1100)
         })
         .catch((err) =>{
             let statusCode = err.status
@@ -61,7 +61,7 @@ const useAuthService = () =>{
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    theme: "light",
+                    theme: "colored",
                     transition: Bounce,
                     });
             }
@@ -75,7 +75,7 @@ const useAuthService = () =>{
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    theme: "light",
+                    theme: "colored",
                     transition: Bounce,
                     });
             }
@@ -94,19 +94,19 @@ const useAuthService = () =>{
 
                 toast.success("Login is successful", {
                     position: "top-right",
-                    autoClose: 3000,
+                    autoClose: 800,
                     hideProgressBar: false,
                     closeOnClick: false,
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    theme: "light",
+                    theme: "colored",
                     transition: Bounce,
                     });
                 setTimeout(() =>{
                     setUser(user);
                     setToken(token)
-                },3300)
+                },1100)
             })
             .catch((err) =>{
                 
@@ -139,7 +139,7 @@ const useAuthService = () =>{
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
-                        theme: "light",
+                        theme: "colored",
                         transition: Bounce,
                     });
                 }
@@ -150,13 +150,13 @@ const useAuthService = () =>{
         // Toast notification
         toast.success("Logout is successful", {
             position: "top-right",
-            autoClose: 2000,
+            autoClose: 800,
             hideProgressBar: false,
             closeOnClick: false,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "light",
+            theme: "colored",
             transition: Bounce,
         });
         setTimeout(() =>{
@@ -164,7 +164,7 @@ const useAuthService = () =>{
             localStorage.removeItem("ACCESS_TOKEN");
             setUser(null);
             setToken(null);
-        },2500)
+        },1300)
     };
 
     return {

@@ -3,25 +3,30 @@ import { addProductSchema } from '../../validations/ValidationSchema';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../../features/products/productSlice';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router';
 
 const AddProduct = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const handleSubmit = async (values, actions) => {
+    const handleSubmit = async (values) => {
        try {
         console.log(values); // Handle form values here
             await dispatch(addProduct({ product: values })).unwrap()
-            toast.success('Ürün başarıyla eklendi!', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
-            actions.resetForm();
+            navigate("/products")
+            setTimeout(() => {
+                toast.success('Ürün başarıyla eklendi!', {
+                    position: "top-right",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Bounce,
+                });
+            }, 100);
+            
         
        } catch (error) {
             toast.error("Ürün eklenemedi.....", {
@@ -32,7 +37,7 @@ const AddProduct = () => {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "light",
+                theme: "colored",
                 transition: Bounce,
                 });
        }
