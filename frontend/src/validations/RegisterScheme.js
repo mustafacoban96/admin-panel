@@ -10,6 +10,7 @@ export const registerSchema = yup.object().shape({
     .matches(/(?=.*[0-9])/, "Password must contain at least one numeric digit")
     .matches(/(?=.*[!@#$%^&*._])/, "Password must contain at least one special character")
     .matches(/(?=.*[A-Z])/, "Password must contain at least one uppercase letter")
+    .matches(/(?=.*[a-z])/, "Password must contain at least one lowercase letter")
     .required("Password is required"),
   confirm_password: yup
     .string()
