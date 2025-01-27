@@ -4,8 +4,6 @@ import axiosConfig from "./accountApi/accountApi";
 import { Bounce, toast } from 'react-toastify';
 
 
-
-
 const useAuthService = () =>{
     const {setUser,setToken} = useAuthContext();
     const [confirm_password, setConfirmPassword] = useState(false);
@@ -149,18 +147,24 @@ const useAuthService = () =>{
             })
     }
     const logoutApi = () => {
-        return new Promise((resolve) => {
+        // Toast notification
+        toast.success("Logout is successful", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
+        setTimeout(() =>{
             localStorage.removeItem("USER");
             localStorage.removeItem("ACCESS_TOKEN");
             setUser(null);
             setToken(null);
-            toast.success("Logout is successful", {
-                position: "top-right",
-                autoClose: 2000,
-                theme: "light",
-            });
-            resolve();
-        });
+        },2500)
     };
 
     return {
