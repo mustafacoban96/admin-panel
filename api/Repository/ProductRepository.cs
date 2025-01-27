@@ -23,7 +23,9 @@ namespace api.Repository
         }
          public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
         {
-            var products = await _context.Products.ToListAsync();
+            var products = await _context.Products
+                                  .OrderByDescending(p => p.UpdatedAt) // Son güncellenen ürünler en üstte
+                                  .ToListAsync();
             return _mapper.Map<IEnumerable<ProductDto>>(products);
         }
 
@@ -37,6 +39,8 @@ namespace api.Repository
         public async Task AddProductAsync(CreateProductDto productDto)
         {
             var product = _mapper.Map<Product>(productDto);
+            product.CreatedAt = DateTime.UtcNow;
+            product.UpdatedAt = DateTime.UtcNow;
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
         }
@@ -45,7 +49,8 @@ namespace api.Repository
         {
             var product = await _context.Products.FindAsync(productId);
             if (product == null) return;
-
+           
+            product.UpdatedAt = DateTime.UtcNow;
             // Varolan entity'yi DTO'dan güncelle
             _mapper.Map(productDto, product);
 

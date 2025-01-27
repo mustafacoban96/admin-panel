@@ -14,5 +14,7 @@ namespace api.Models
         public string Description { get; set; } // Ürün açıklaması
         public decimal Price { get; set; } // Ürün fiyatı
         public int Stock { get; set; } // Stok miktarı
+        public DateTime CreatedAt { get; set; }// Ürün oluşturulma tarihi
+        public DateTime? UpdatedAt { get; set; } // Ürün güncellenme tarihi (nullable)
     }
 }
