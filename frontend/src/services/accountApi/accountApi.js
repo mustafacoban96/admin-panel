@@ -26,7 +26,7 @@ axiosConfig.interceptors.response.use(
         return response;
     },
     async (error) =>{
-        const originalRequest = error.config;
+        
         return Promise.reject(error);
     }
 );
