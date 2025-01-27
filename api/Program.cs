@@ -1,7 +1,10 @@
 using api.Data;
+using api.Helper;
 using api.Interfaces;
 using api.Models;
+using api.Repository;
 using api.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +21,8 @@ builder.Services.AddControllers();
 
 
 builder.Services.AddOpenApi();
+builder.Services.AddSwaggerGen();
+
 
 
 /////// cors policy container///////
@@ -39,9 +44,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>{
 });
 ///////////////////////
 ///////Service-Repo-Interface DI////////////
-
+builder.Services.AddScoped<IProductRepository,ProductRepository>();
 builder.Services.AddScoped<ITokenService,TokenService>();
 /////////////////////////
+
+//Auto mapper
+var automapper = new MapperConfiguration(item => item.AddProfile(new AutoMapperHandler()));
+IMapper mapper = automapper.CreateMapper();
+builder.Services.AddSingleton(mapper);
+//
 
 //Newton js
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
@@ -77,11 +88,26 @@ builder.Services.AddAuthentication(options =>{
         ValidIssuer = builder.Configuration["JWT:Issuer"],
         ValidateAudience = true,
         ValidAudience = builder.Configuration["JWT:Audience"],
+        ClockSkew = TimeSpan.Zero,
+        ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(
             System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"])
         )
     };
+
+    //  options.Events = new JwtBearerEvents
+    // {
+    //     OnAuthenticationFailed = context =>
+    //     {
+    //         // Token doğrulama hatası durumunda yapılacak işlemler
+    //         if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+    //         {
+    //             context.Response.Headers.Add("Token-Expired", "true");  // Header ekleyebilirsiniz.
+    //         }
+    //         return Task.CompletedTask;
+    //     }
+    // };
 });
 
 ////////////////////////////////////////////
@@ -91,6 +117,9 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger(); // Swagger'ı etkinleştirir.
+    app.UseSwaggerUI();
+    
 }
 
 app.UseHttpsRedirection();
