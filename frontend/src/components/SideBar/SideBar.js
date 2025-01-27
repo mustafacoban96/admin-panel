@@ -10,7 +10,7 @@ const linkClass = 'flex items-center gap-2 font-light px-3 py-2 hover:bg-gray-20
 
 const SidebarLink = ({ item }) => {
     const { pathname } = useLocation();
-    const { logoutApi } = useAuthService(); // logoutApi'yi burada alıyoruz
+    const { logoutApi } = useAuthService();
 
     return (
         <Link 
