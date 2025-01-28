@@ -9,6 +9,8 @@ import Settings from "./views/Settings/Settings"
 import Dashboard from "./views/Home/Dashboard";
 import ProductDetail from "./views/Product/ProductDetail";
 import AddProduct from "./views/Product/AddProduct";
+import Modal from "./components/Modals/Modal";
+import Test from "./views/Test/Test";
 
 
 const router = createBrowserRouter([
@@ -36,6 +38,10 @@ const router = createBrowserRouter([
             {
                 path:"/product/add",
                 element:<AddProduct/>
+            },
+            {
+                path:'/test',
+                element:<Test/>
             }
         ]
     },
