@@ -5,6 +5,7 @@
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@hookform/resolvers": "^3.10.0",
+    "@mui/icons-material": "^6.4.1",
     "@reduxjs/toolkit": "^2.5.0",
     "axios": "^1.7.9",
     "classnames": "^2.5.1",
@@ -14,6 +15,8 @@
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.473.0",
     "react": "^19.0.0",
+    "react-csv": "^2.2.2",
+    "react-data-table-component": "^7.6.2",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
     "react-modal": "^3.16.3",
@@ -23,6 +26,7 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^11.0.3",
     "recharts": "^2.15.0",
+    "styled-components": "^6.1.14",
     "yup": "^1.6.1"
   },
   "scripts": {
@@ -50,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.4.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.5.1",
     "tailwindcss": "^3.4.17"
