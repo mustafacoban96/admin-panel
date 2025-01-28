@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link for routing
 import logo from "../../assets/SANKOLogo-02.png";
 import useAuthService from '../../services/auth-service';
 import { ToastContainer } from 'react-toastify';
@@ -6,24 +7,21 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from '../../validations/LoginScheme'; 
 
-
 const Login = () => {
   const { loginApi } = useAuthService();
 
   // react-hook-form setup
   const {
-    register:login,// it connects inputs to form
-    handleSubmit, // if all validations are successful , run callback
+    register: login, // it connects inputs to form
+    handleSubmit, // if all validations are successful, run callback
     formState: { errors }, // formState includes form errors
   } = useForm({
-    resolver: yupResolver(loginSchema),// validation rules
+    resolver: yupResolver(loginSchema), // validation rules
   });
 
   // Handle form submission
   const onSubmit = (data) => {
-    //console.log("Form Data:", data);
-    // API call
-    loginApi(data); 
+    loginApi(data); // API call
   };
 
   return (
@@ -92,6 +90,16 @@ const Login = () => {
               </button>
             </div>
           </form>
+
+          {/* Register Link */}
+          <div className="text-center mt-4">
+            <p className="text-sm text-gray-600">
+              Don't have an account?{' '}
+              <Link to="/register" className="text-blue-600 hover:underline">
+                Register here
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
       <ToastContainer />

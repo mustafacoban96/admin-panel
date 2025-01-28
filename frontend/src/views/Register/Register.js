@@ -28,7 +28,7 @@ const Register = () => {
   return (
     <>
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-md">
           <div className="flex justify-center">
             <img src={logo} className="w-48" alt="sanko-logo" />
           </div>
