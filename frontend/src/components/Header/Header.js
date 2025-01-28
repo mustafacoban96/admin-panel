@@ -1,151 +1,138 @@
-import React, { Fragment } from 'react'
-import { Menu, Popover, Transition } from '@headlessui/react'
-import { HiOutlineBell, HiOutlineSearch, HiOutlineChatAlt } from 'react-icons/hi'
-import { useNavigate } from 'react-router-dom'
-import classNames from 'classnames'
-import { useAuthContext } from '../../context/AuthContext'
-import useAuthService from '../../services/auth-service'
+import React, { Fragment } from 'react';
+import { Menu, Popover, Transition } from '@headlessui/react';
+import { HiOutlineBell, HiOutlineSearch, HiOutlineChatAlt } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { useAuthContext } from '../../context/AuthContext';
+import useAuthService from '../../services/auth-service';
+
 const Header = () => {
     const navigate = useNavigate();
-	const {user} = useAuthContext();
-	const {logoutApi} = useAuthService();
+    const { user } = useAuthContext();
+    const { logoutApi } = useAuthService();
+    const darkMode = useSelector(state => state.theme.darkMode); // Get darkMode from Redux
     const initial = user.username.charAt(0).toUpperCase();
-  //////name
-  return (
-    <div className='dark:bg-darkBack bg-lightBack h-16 px-4 py-1 flex items-center justify-between shadow-sm'>
-      <div className='relative'>
-        <HiOutlineSearch className='text-gray-400 absolute top-1/2 left-3 -translate-y-1/2'/>
-        <input type='text' placeholder='Search...' className='text-sm focus:outline-none active:outline-none border border-gray-200 w-[24rem] h-10 pl-11 px-4 rounded-md placeholder-opacity-100 dark:bg-slate-600'/>
-      </div>
-      <div className='flex items-center  gap-4 mr-4'>
-      <Popover className="relative">
-					{({ open }) => (
-						<>
-							<Popover.Button
-								className={classNames(
-									
-									'group inline-flex items-center rounded-sm p-1.5 text-gray-700 hover:text-opacity-100 focus:outline-none active:bg-gray-100'
-								)}
-							>
-								<HiOutlineChatAlt className='text-lIcon dark:text-dIcon' fontSize={24} />
-							</Popover.Button>
-							<Transition
-								as={Fragment}
-								enter="transition ease-out duration-200"
-								enterFrom="opacity-0 translate-y-1"
-								enterTo="opacity-100 translate-y-0"
-								leave="transition ease-in duration-150"
-								leaveFrom="opacity-100 translate-y-0"
-								leaveTo="opacity-0 translate-y-1"
-							>
-								<Popover.Panel className="absolute right-0 z-10 mt-2.5 transform w-80">
-									<div className="bg-lightBack dark:bg-darkBack rounded-sm shadow-md ring-1 ring-black ring-opacity-5 px-2 py-2.5">
-										<strong className="text-lText dark:text-dText font-medium">Messages</strong>
-										<div className="dark:text-dText mt-2 py-1 text-sm">This is messages panel.</div>
-									</div>
-								</Popover.Panel>
-							</Transition>
-						</>
-					)}
-				</Popover>
-				<Popover className="relative">
-					{({ open }) => (
-						<>
-							<Popover.Button
-								className={classNames(
-									
-									'group inline-flex items-center rounded-sm p-1.5 text-gray-700 hover:text-opacity-100 focus:outline-none active:bg-gray-100'
-								)}
-							>
-								<HiOutlineBell className='text-lIcon dark:text-dIcon' fontSize={24} />
-							</Popover.Button>
-							<Transition
-								as={Fragment}
-								enter="transition ease-out duration-200"
-								enterFrom="opacity-0 translate-y-1"
-								enterTo="opacity-100 translate-y-0"
-								leave="transition ease-in duration-150"
-								leaveFrom="opacity-100 translate-y-0"
-								leaveTo="opacity-0 translate-y-1"
-							>
-								<Popover.Panel className="absolute right-0 z-10 mt-2.5 transform w-80">
-									<div className="bg-lightBack dark:bg-darkBack rounded-sm shadow-md ring-1 ring-black ring-opacity-5 px-2 py-2.5">
-										<strong className="text-lText dark:text-dText font-medium">Notifications</strong>
-										<div className="text-lText dark:text-dText mt-2 py-1 text-sm">This is notification panel.</div>
-									</div>
-								</Popover.Panel>
-							</Transition>
-						</>
-					)}
-				</Popover>
-				<Menu as="div" className="relative">
-					<div>
-						<Menu.Button className="ml-2 bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-neutral-400">
-							<span className="sr-only">Open user menu</span>
-							<div
-								className="h-10 w-10 flex bg-opacity-85 items-center justify-center rounded-full bg-blue-900 text-white font-semibold"
-								
-							>
-								{initial}
-							</div>
-						</Menu.Button>
-					</div>
-					<Transition
-						as={Fragment}
-						enter="transition ease-out duration-100"
-						enterFrom="transform opacity-0 scale-95"
-						enterTo="transform opacity-100 scale-100"
-						leave="transition ease-in duration-75"
-						leaveFrom="transform opacity-100 scale-100"
-						leaveTo="transform opacity-0 scale-95"
-					>
-						<Menu.Items className="bg-lightBack dark:bg-darkBack origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 ring-1 ring-black ring-opacity-5 focus:outline-none">
-							<Menu.Item>
-								{({ active }) => (
-									<div
-										onClick={() => navigate('/profile')}
-										className={classNames(
-											active && 'bg-gray-100',
-											'active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200 text-lText dark:text-dText'
-										)}
-									>
-										Your Profile
-									</div>
-								)}
-							</Menu.Item>
-							<Menu.Item>
-								{({ active }) => (
-									<div
-										onClick={() => navigate('/settings')}
-										className={classNames(
-											active && 'bg-gray-100',
-											'active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200 text-lText dark:text-dText'
-										)}
-									>
-										Settings
-									</div>
-								)}
-							</Menu.Item>
-							<Menu.Item>
-								{({ active }) => (
-									<div
-										onClick={logoutApi}
-										className={classNames(
-											active && 'bg-gray-100',
-											'active:bg-gray-200 rounded-sm px-4 py-2 text-lText dark:text-dText cursor-pointer focus:bg-gray-200'
-										)}
-									>
-										Sign out
-									</div>
-								)}
-							</Menu.Item>
-						</Menu.Items>
-					</Transition>
-				</Menu>
-        
-      </div>
-    </div>
-  )
-}
+	
 
-export default Header
+    return (
+        <div className={classNames('h-16 px-4 py-1 flex items-center justify-between shadow-sm', darkMode ? 'dark:bg-darkBack' : 'bg-lightBack')}>
+            <div className='relative'>
+                <HiOutlineSearch className='text-gray-400 absolute top-1/2 left-3 -translate-y-1/2' />
+                <input
+                    type='text'
+                    placeholder='Search...'
+                    className='text-sm focus:outline-none active:outline-none border border-gray-200 w-[24rem] h-10 pl-11 px-4 rounded-md placeholder-opacity-100 dark:bg-slate-600'
+                />
+            </div>
+            <div className='flex items-center gap-4 mr-4'>
+                <Popover className="relative">
+                    {({ open }) => (
+                        <>
+                            <Popover.Button className='group inline-flex items-center rounded-sm p-1.5 text-gray-700 hover:text-opacity-100 focus:outline-none active:bg-gray-100'>
+                                <HiOutlineChatAlt className='text-lIcon dark:text-dIcon' fontSize={24} />
+                            </Popover.Button>
+                            <Transition
+                                as={Fragment}
+                                enter="transition ease-out duration-200"
+                                enterFrom="opacity-0 translate-y-1"
+                                enterTo="opacity-100 translate-y-0"
+                                leave="transition ease-in duration-150"
+                                leaveFrom="opacity-100 translate-y-0"
+                                leaveTo="opacity-0 translate-y-1"
+                            >
+                                <Popover.Panel className="absolute right-0 z-10 mt-2.5 transform w-80">
+                                    <div className="bg-lightBack dark:bg-darkBack rounded-sm shadow-md ring-1 ring-black ring-opacity-5 px-2 py-2.5">
+                                        <strong className="text-lText dark:text-dText font-medium">Messages</strong>
+                                        <div className="dark:text-dText mt-2 py-1 text-sm">This is messages panel.</div>
+                                    </div>
+                                </Popover.Panel>
+                            </Transition>
+                        </>
+                    )}
+                </Popover>
+                <Popover className="relative">
+                    {({ open }) => (
+                        <>
+                            <Popover.Button className='group inline-flex items-center rounded-sm p-1.5 text-gray-700 hover:text-opacity-100 focus:outline-none active:bg-gray-100'>
+                                <HiOutlineBell className='text-lIcon dark:text-dIcon' fontSize={24} />
+                            </Popover.Button>
+                            <Transition
+                                as={Fragment}
+                                enter="transition ease-out duration-200"
+                                enterFrom="opacity-0 translate-y-1"
+                                enterTo="opacity-100 translate-y-0"
+                                leave="transition ease-in duration-150"
+                                leaveFrom="opacity-100 translate-y-0"
+                                leaveTo="opacity-0 translate-y-1"
+                            >
+                                <Popover.Panel className="absolute right-0 z-10 mt-2.5 transform w-80">
+                                    <div className="bg-lightBack dark:bg-darkBack rounded-sm shadow-md ring-1 ring-black ring-opacity-5 px-2 py-2.5">
+                                        <strong className="text-lText dark:text-dText font-medium">Notifications</strong>
+                                        <div className="text-lText dark:text-dText mt-2 py-1 text-sm">This is notification panel.</div>
+                                    </div>
+                                </Popover.Panel>
+                            </Transition>
+                        </>
+                    )}
+                </Popover>
+                <Menu as="div" className="relative">
+                    <div>
+                        <Menu.Button className="ml-2 bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-neutral-400">
+                            <span className="sr-only">Open user menu</span>
+                            <div className="h-10 w-10 flex bg-opacity-85 items-center justify-center rounded-full bg-blue-900 text-white font-semibold">
+                                {initial}
+                            </div>
+                        </Menu.Button>
+                    </div>
+                    <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                    >
+                        <Menu.Items className="bg-lightBack dark:bg-darkBack origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <div
+                                        onClick={() => navigate('/profile')}
+                                        className={classNames(active && 'bg-gray-100', 'active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200 text-lText dark:text-dText')}
+                                    >
+                                        Your Profile
+                                    </div>
+                                )}
+                            </Menu.Item>
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <div
+                                        onClick={() => navigate('/settings')}
+                                        className={classNames(active && 'bg-gray-100', 'active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200 text-lText dark:text-dText')}
+                                    >
+                                        Settings
+                                    </div>
+                                )}
+                            </Menu.Item>
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <div
+                                        onClick={logoutApi}
+                                        className={classNames(active && 'bg-gray-100', 'active:bg-gray-200 rounded-sm px-4 py-2 text-lText dark:text-dText cursor-pointer focus:bg-gray-200')}
+                                    >
+                                        Sign out
+                                    </div>
+                                )}
+                            </Menu.Item>
+                        </Menu.Items>
+                    </Transition>
+                </Menu>
+
+                
+            </div>
+        </div>
+    );
+};
+
+export default Header;

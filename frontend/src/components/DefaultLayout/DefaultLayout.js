@@ -1,40 +1,36 @@
-import React, { useState } from 'react'
-import { Navigate, Outlet, useLocation} from 'react-router'
-import { useAuthContext } from '../../context/AuthContext'
+import React, { useEffect } from 'react';
+import { Navigate, Outlet } from 'react-router';
+import { useAuthContext } from '../../context/AuthContext';
 import SideBar from '../SideBar/SideBar';
 import Header from '../Header/Header';
 import { ToastContainer } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleDarkMode } from '../../features/theme/themeSlice';
 
 const DefaultLayout = () => {
-  const {token} = useAuthContext();
-  const [darkMode, setDarkMode] = useState(false);
-  // if (token === null) {
-  //   Token kontrolü için null durumunda yükleme beklenebilir
-  //   return (
-  //     setTimeout(() =>{
-  //       <div className="flex items-center justify-center h-screen">
-  //       <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500 border-opacity-75"></div>
-  //     </div>
-  //     },1500)
-  //   );
-  // }
+  const { token } = useAuthContext();
+  const dispatch = useDispatch();
+  const darkMode = useSelector(state => state.theme.darkMode);  // Get darkMode from Redux store
 
-
-
-  if (!token) {
+  const handleToggle = () => {
+    dispatch(toggleDarkMode());
+  };
+  useEffect(() => {
     
-    return <Navigate to="/login"/>;
+  }, [darkMode]);
+  if (!token) {
+    return <Navigate to="/login" />;
   }
+
+  // Move the useEffect hook out of the conditional block
   
 
   return (
-    
-    <>
     <div className={darkMode ? 'dark' : ''}>
       <ToastContainer />
       <div className="flex h-screen w-screen overflow-hidden">
         {/* SideBar */}
-          <SideBar />
+        <SideBar />
 
         {/* Main Content */}
         <div className="ml-60 flex-1 flex flex-col">
@@ -52,14 +48,13 @@ const DefaultLayout = () => {
 
       {/* Dark Mode Toggle */}
       <button
-        onClick={() => setDarkMode((prev) => !prev)}
+        onClick={handleToggle}
         className="fixed bottom-6 right-6 p-3 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white rounded-full shadow-lg z-50"
       >
         {darkMode ? '☀️ Light' : '🌙 Dark'}
       </button>
     </div>
-    </>
-  )
-}
+  );
+};
 
-export default DefaultLayout
+export default DefaultLayout;
