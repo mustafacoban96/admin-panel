@@ -30,6 +30,7 @@ const useAuthService = () =>{
         
         return axiosConfig.post("/register" , register_payload)
         .then((response) =>{
+            console.log("regsiter data:", response);
             response = response.data
             let user = {username: response.username,email:response.email}
             let token = response.token
@@ -53,7 +54,7 @@ const useAuthService = () =>{
             let statusCode = err.status
             console.log("errrrr::::",err)
             if(statusCode == 500){
-                toast.error("inputs are not valid", {
+                toast.error("inputs are not valid, Check the characters for Engilsh", {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
